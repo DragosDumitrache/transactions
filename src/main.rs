@@ -165,7 +165,7 @@ fn main() -> Result<(), Error> {
     let transactions = read_csv_file(filename)?;
     let accounts = process_transactions(transactions);
     println!("client, available, held, total, locked");
-    for (client, account) in accounts.iter() {
+    for (client, account) in accounts.into_iter() {
         println!("{}, {}, {}, {}, {}", client, account.available, account.held, account.total_funds(), account.frozen);
     }
     Ok(())
@@ -413,6 +413,7 @@ mod tests {
 
         let user_0_account = accounts.get(&0).unwrap();
         assert_eq!(user_0_account.disputed_transactions, vec![]);
+        assert_eq!(user_0_account.frozen, true);
         assert_eq!(user_0_account.available, 15.0);
         assert_eq!(user_0_account.held, 0.0);
         assert_eq!(user_0_account.total_funds(), 15.0);
@@ -449,6 +450,7 @@ mod tests {
 
         let user_0_account = accounts.get(&0).unwrap();
         assert_eq!(user_0_account.disputed_transactions, vec![1]);
+        assert_eq!(user_0_account.frozen, false);
         assert_eq!(user_0_account.available, 15.0);
         assert_eq!(user_0_account.held, 5.0);
         assert_eq!(user_0_account.total_funds(), 20.0);
