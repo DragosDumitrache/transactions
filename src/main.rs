@@ -43,7 +43,7 @@ impl Account {
 
     fn withdraw(&mut self, amount: f32) {
         // Assuming that if the account is frozen, all deposit/withdrawal operations are blocked.
-        if amount > self.available && self.frozen {
+        if amount > self.available || self.frozen {
             return;
         }
         self.available -= amount;
