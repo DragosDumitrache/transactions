@@ -193,9 +193,9 @@ mod tests {
         assert!(accounts.contains_key(&0));
 
         let user_0_account = accounts.get(&0).unwrap();
-        assert_eq!(user_0_account.available, 20.0);
+        assert_eq!(user_0_account.available, 30.0);
         assert_eq!(user_0_account.held, 0.0);
-        assert_eq!(user_0_account.total_funds(), 20.0);
+        assert_eq!(user_0_account.total_funds(), 30.0);
     }
 
     #[test]
