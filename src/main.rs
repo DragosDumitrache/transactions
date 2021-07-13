@@ -36,14 +36,14 @@ struct Account {
 impl Account {
     fn deposit(&mut self, amount: f32) {
         // Assuming that if the account is frozen, all deposit/withdrawal operations are blocked.
-        if !self.frozen {
+        if !&self.frozen {
             self.available += amount;
         }
     }
 
     fn withdraw(&mut self, amount: f32) {
         // Assuming that if the account is frozen, all deposit/withdrawal operations are blocked.
-        if amount > self.available && !self.frozen {
+        if amount > self.available && self.frozen {
             return;
         }
         self.available -= amount;
@@ -70,7 +70,7 @@ impl Account {
         }
     }
     fn total_funds(&self) -> f32 {
-        self.available + self.held
+        &self.available + &self.held
     }
 }
 
